@@ -18,15 +18,20 @@ import os
 #   "mp3", "m4a", "aac", "flac", "wav", "opus", "vorbis"
 DOWNLOAD_FORMAT = "flac"
 
+# Flag to control re-downloading existing tracks
+# Set to True to skip downloading tracks already in the folder (update with new only)
+# Set to False to re-download and overwrite existing tracks
+UPDATE_ONLY = True
+
 # Replace <YOUTUBE_PL_ID> with YT video ID in the URL
 # Note: <YOUTUBE_ID> - one of tracks IDs from the playlist
 # Note: the playlist needs to be Public to download all the tracks from the playlist
-playlist_url = "https://www.youtube.com/watch?v=<YOUTUBE_ID>&list=<YOUTUBE_PL_ID>"
+playlist_url = "https://www.youtube.com/watch?v=3eRHuwqYizA&list=PLqX_LtipSXx_UiWiNClirBiIdEkAedR3t"
 
 
 # Folder where audio files will be saved
-playlist_name = "Just_nice" # change this
-download_folder = os.path.expanduser(f"~/yt_dl/{playlist_name}/{DOWNLOAD_FORMAT}") 
+playlist_name = "Rock_Metal_AI" # change this
+download_folder = os.path.expanduser(f"/media/ek/EK_BACKUP/Music/ROCK_METAL_AI/{playlist_name}/{DOWNLOAD_FORMAT}") 
 
 # Create folder if it doesn't exist
 os.makedirs(download_folder, exist_ok=True)
@@ -44,6 +49,7 @@ ydl_opts = {
     "ignoreerrors": True,
     "noplaylist": False, # Force full playlist download
     "continuedl": True,
+    "nooverwrites": UPDATE_ONLY,
     "postprocessors": [
         {
             'key': 'FFmpegExtractAudio',
